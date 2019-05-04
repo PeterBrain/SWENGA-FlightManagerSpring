@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<div th:include="~{includes/bootstrap :: bootstrapMeta}" th:remove="tag" />
+	<title>Flight Manager</title>
+	<div th:include="~{includes/bootstrap :: bootstrapCSS}" th:remove="tag" />
+	<link href="http://www.malot.fr/bootstrap-datetimepicker/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css" rel="stylesheet">
+</head>
+
+<body>
+	<div class="container" role="main">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<form class="form-horizontal" method="post" th:action="${flight} ? @{/editFlight(flightId=${flight.flightId})} : @{/addFlight}">
+					<fieldset>
+						<legend th:text="${flight} ? 'Change Flight' : 'New Flight'">New Flight</legend>
+
+						<!-- flightId -->
+						<div class="form-group">
+							<label for="inputFlightId" class="col-md-3 control-label">Flight ID</label>
+							<div class="col-md-9">
+								<input class="form-control" id="inputFlightId" type="text" name="flightId" th:value="${flight} ? ${flight.flightId}" th:readonly="${flight}">
+							</div>
+						</div>
+						
+						<!-- aircraft -->
+						<div class="form-group">
+							<label for="inputAircraft" class="col-md-3 control-label">Aircraft</label>
+							<div class="col-md-9">
+								<input class="form-control" id="inputAircraft" type="text" name="aircraft" th:value="${flight} ? ${flight.aircraft}">
+							</div>
+						</div>
+						
+						<!-- origin -->
+						<div class="form-group">
+							<label for="inputOrigin" class="col-md-3 control-label">Origin</label>
+							<div class="col-md-9">
+								<input class="form-control" id="inputOrigin" type="text" name="origin" th:value="${flight} ? ${flight.origin}">
+							</div>
+						</div>
+
+						<!-- destination -->
+						<div class="form-group">
+							<label for="inputDestination" class="col-md-3 control-label">Destination</label>
+							<div class="col-md-9">
+								<input class="form-control" id="inputDestination" type="text" name="destination" th:value="${flight} ? ${flight.destination}">
+							</div>
+						</div>
+						
+						<!-- departure -->
+						<div class="form-group">
+							<label for="inputDeparture" class="col-md-3 control-label">Departure</label>
+							<div class="col-md-9">
+								<input class="form_datetime" id="inputDeparture" placeholder="Date" type="text" readonly name="departure"
+									th:value="${flight} ? ${#dates.format(flight.departure, 'dd.MM.yyyy HH:mm')}">
+							</div>
+						</div>
+						
+						<!-- arrival -->
+						<div class="form-group">
+							<label for="inputArrival" class="col-md-3 control-label">Arrival</label>
+							<div class="col-md-9">
+								<input class="form_datetime" id="inputArrival" placeholder="Date" type="text" readonly name="arrival"
+									th:value="${flight} ? ${#dates.format(flight.arrival, 'dd.MM.yyyy HH:mm')}">
+							</div>
+						</div>
+						
+						<!-- number of passengers -->
+						<div class="form-group">
+							<label for="inputNumberOfPassengers" class="col-md-3 control-label"># of Passengers</label>
+							<div class="col-md-9">
+								<input class="form-control" id="inputNumberOfPassengers" type="text" name="numberOfPassengers" th:value="${flight} ? ${flight.numberOfPassengers}">
+							</div>
+						</div>
+						
+						<!-- airline -->
+						<div class="form-group">
+							<label for="inputAirline" class="col-md-3 control-label">Airline</label>
+							<div class="col-md-9">
+								<input class="form-control" id="inputAirline" type="text" name="airline" th:value="${flight} ? ${flight.airline}">
+							</div>
+						</div>
+						
+						<!-- cancelled -->
+						<div class="form-group">
+							<label for="inputCancelled" class="col-md-3 control-label">Cancelled</label>
+							<div class="col-md-9">
+								<input class="form-control" id="inputCancelled" type="checkbox" name="cancelled" th:checked="${flight} ? ${flight.cancelled}">
+							</div>
+						</div>
+
+						<!-- buttons -->
+						<div class="form-group">
+							<div class="col-md-10 col-md-offset-2">
+								<button type="submit" class="btn btn-primary">Submit</button>
+								<a href="listFlights" class="btn btn-default">Cancel</a>
+							</div>
+						</div>
+
+					</fieldset>
+				</form>
+			</div>
+		</div>
+
+	</div>
+	<!--  End of container -->
+	<div th:include="~{includes/bootstrap :: bootstrapJS}" th:remove="tag" />
+
+	<!-- JS for Datetime picker -->
+	<script type="text/javascript" src="http://www.malot.fr/bootstrap-datetimepicker/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+
+	<script>
+	$(function() {
+		$(".form_datetime").datetimepicker({
+			format : "dd.mm.yyyy hh:ii",
+			pickerPosition : "bottom-left",
+			autoclose : true,
+			todayBtn : true,
+			todayHighlight : true,
+			keyboardNavigation : true,
+			minView : 0,
+			maxView : 3,
+			minuteStep : 1,
+			weekStart : 1,
+			startDate: new Date
+		});
+	});
+	</script>
+
+</body>
+
+</html>
