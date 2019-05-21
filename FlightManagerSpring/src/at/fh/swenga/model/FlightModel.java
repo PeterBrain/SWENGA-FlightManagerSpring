@@ -135,7 +135,11 @@ public class FlightModel {
 		return true;
 	}
 
-	// toString
+	/**
+	 * returns a string with all attributes accumulated
+	 * 
+	 * return 
+	 */
 	@Override
 	public String toString() {
 		return "FlightModel [flightId=" + flightId + ", aircraft=" + aircraft + ", origin=" + origin + ", destination="
